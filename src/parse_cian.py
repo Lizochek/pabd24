@@ -17,8 +17,8 @@ moscow_parser = cianparser.CianParser(location="Москва")
 
 def main():
     t = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-    n_rooms = 2
-    CSV_PATH = 'data/raw/{n_rooms}_{t}.csv'
+    n_rooms = 3
+    CSV_PATH = f'data/raw/{n_rooms}_{t}.csv'
     data = moscow_parser.get_flats(
         deal_type="sale",
         rooms=(n_rooms,),
@@ -34,7 +34,7 @@ def main():
               encoding='utf-8',
               index = False)
     bucket_name = 'pabd24'
-    objects_name ='22/' + CSV_PATH 
+    objects_name ='22/' + CSV_PATH
     client.upload_file(CSV_PATH, bucket_name, objects_name)
 
 
