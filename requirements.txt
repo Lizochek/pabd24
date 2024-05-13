@@ -1,4 +1,3 @@
-# external requirements
 flask
 flask-cors
 cianparser
@@ -6,3 +5,7 @@ scikit-learn
 pandas
 boto3
 python-dotenv
+PyGithub
+jupyter
+matplotlib
+matplotlib

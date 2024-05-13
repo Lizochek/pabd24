@@ -6,9 +6,9 @@ import boto3
 
 BUCKET_NAME = 'pabd24'
 YOUR_ID = '22'
-CSV_PATH = ['data/raw/cian_flat_sale_1_50_moskva_26_Apr_2024_14_08_32_338904.csv',
-            'data/raw/cian_flat_sale_1_50_moskva_26_Apr_2024_14_15_43_988750.csv',
-            'data/raw/cian_flat_sale_1_50_moskva_26_Apr_2024_14_22_17_675082.csv']
+CSV_PATH = ['data/raw/1_2024-05-13-00-25-22.csv',
+            'data/raw/2_2024-05-13-00-12-15.csv',
+            'data/raw/3_2024-05-13-00-29-59.csv']
 
 config = dotenv_values(".env")
 
@@ -22,8 +22,8 @@ def main(args):
     )
 
     for csv_path in args.input:
-        object_name = f'{YOUR_ID}/' + csv_path.replace('\\', '/')
-        client.download_file(BUCKET_NAME, csv_path, object_name)
+        remote_name = f'{YOUR_ID}/' + csv_path.replace('\\', '/')
+        client.download_file(BUCKET_NAME, remote_name, csv_path)
 
 
 if __name__ == '__main__':
