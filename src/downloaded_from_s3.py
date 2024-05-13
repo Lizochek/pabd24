@@ -23,7 +23,7 @@ def main(args):
 
     for csv_path in args.input:
         object_name = f'{YOUR_ID}/' + csv_path.replace('\\', '/')
-        client.upload_file(csv_path, BUCKET_NAME, object_name)
+        client.download_file(BUCKET_NAME, csv_path, object_name)
 
 
 if __name__ == '__main__':
