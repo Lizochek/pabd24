@@ -32,10 +32,16 @@ pip install -r requirements.txt
 pip install flask
 pip install flask-cors
 pip install cianparser
+
+или 
+flask
+flask-cors
+cianparser
 ```
 flask
 flask-cors
 cianparser
+
 ## Использование
 
 Основной скрипт `parse_cian.py` собирает данные о продаже однокомнатных, двухкомнатных и трёхкомнатных квартир в Москве и сохраняет их в CSV файлы. Данные извлекаются с первых 50 страниц результатов поиска.
