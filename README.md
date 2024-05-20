@@ -26,14 +26,15 @@ pip install -r requirements.txt
 
 ## Установка
 
-Для работы с проектом вам понадобится Python версии 3.8 или выше. Установите необходимые библиотеки прописав их в requirements.txt, либо через pip :
+Для работы с проектом вам понадобится Python версии 3.8 или выше. 
+Установите необходимые библиотеки прописав их в requirements.txt, либо через pip :
 
 ```bash
 pip install flask
 pip install flask-cors
 pip install cianparser
 
-или 
+или в requirements.txt:
 flask
 flask-cors
 cianparser
