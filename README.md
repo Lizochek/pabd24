@@ -601,7 +601,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"area": 50}' http://0.0.0.
 }
 ```
 
-## Структура проекта
+## Структура необходимая для работы скрипта
 
 - `src/predict_app.py` — основной файл приложения Flask.
 - `static/` — директория для статических файлов (например, `favicon.ico`).
