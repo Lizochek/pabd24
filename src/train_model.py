@@ -24,7 +24,6 @@ def main(args):
     x_train = df_train[['total_meters']]
     y_train = df_train['price']
 
-
     linear_model = LinearRegression()
     linear_model.fit(x_train, y_train)
     dump(linear_model, args.model)

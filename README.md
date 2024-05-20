@@ -393,7 +393,171 @@ if __name__ == '__main__':
 
 ### 5. Обучение модели 
 
-todo Описание модели и входных параметров для предсказания здесь.  
+# train_model.py
+
+Этот скрипт предназначен для обучения модели и сохранения контрольной точки модели.
+
+## Описание скрипта
+
+Скрипт выполняет следующие шаги:
+
+1. **Загрузка данных**:
+    - Загружает тренировочные данные из CSV файла.
+
+2. **Обучение модели**:
+    - Использует алгоритм линейной регрессии для обучения модели на тренировочных данных.
+    - Определяет зависимость цены от общей площади.
+
+3. **Сохранение модели**:
+    - Сохраняет обученную модель в файл, указанный пользователем, либо в файл по умолчанию.
+
+4. **Логирование**:
+    - Логирует информацию о процессе обучения и параметры модели.
+
+## Использование
+
+Запуск скрипта осуществляется из командной строки с возможностью указания пути для сохранения модели.
+
+```bash
+python train_model.py -m models/my_model.joblib
+```
+
+Параметры:
+- `-m`, `--model`: Путь для сохранения модели (по умолчанию `models/linear_regression_v01.joblib`).
+
+## Пример
+
+Пример команды для запуска:
+
+```bash
+python train_model.py -m models/my_linear_model.joblib
+```
+
+Этот пример обучит модель линейной регрессии на тренировочных данных и сохранит её в файл `my_linear_model.joblib`.
+
+## Логирование
+
+Скрипт ведет логирование своей работы в файл `log/train_model.log`. Логи включают информацию о ходе выполнения и параметры модели.
+
+## Структура папок
+
+- `data/proc/` — обработанные данные (train.csv и val.csv).
+- `models/` — сохраненные модели.
+- `log/` — файлы логов.
+
+## Требования
+
+- Python 3.x
+- Библиотеки: `pandas`, `argparse`, `logging`, `scikit-learn`, `joblib`
+
+Установка необходимых библиотек:
+
+```bash
+pip install pandas scikit-learn joblib
+```
+
+## Код
+
+```python
+import argparse
+import logging
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error
+from joblib import dump
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    filename='log/train_model.log',
+    encoding='utf-8',
+    level=logging.DEBUG,
+    format='%(asctime)s %(message)s')
+
+TRAIN_DATA = 'data/proc/train.csv'
+VAL_DATA = 'data/proc/val.csv'
+MODEL_SAVE_PATH = 'models/linear_regression_v01.joblib'
+
+def main(args):
+    df_train = pd.read_csv(TRAIN_DATA)
+    x_train = df_train[['total_meters']]
+    y_train = df_train['price']
+
+    linear_model = LinearRegression()
+    linear_model.fit(x_train, y_train)
+    dump(linear_model, args.model)
+    logger.info(f'Saved to {args.model}')
+
+    r2 = linear_model.score(x_train, y_train)
+    c = int(linear_model.coef_[0])
+    inter = int(linear_model.intercept_)
+
+    logger.info(f'R2 = {r2:.3f}    Price = {c} * area + {inter}')
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-m', '--model',
+                        help='Model save path',
+                        default=MODEL_SAVE_PATH)
+    args = parser.parse_args()
+    main(args)
+```
+
+## Обучение модели с использованием RandomForestRegressor
+
+В случае использования модели случайного леса (RandomForestRegressor) скрипт выполняет дополнительные шаги:
+
+- Загружает валидационные данные.
+- Оценивает модель на валидационном наборе данных.
+- Логирует  важность признаков.
+
+### Пример использования RandomForestRegressor:
+
+```python
+import argparse
+import logging
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error
+from joblib import dump
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    filename='log/train_model.log',
+    encoding='utf-8',
+    level=logging.DEBUG,
+    format='%(asctime)s %(message)s')
+
+TRAIN_DATA = 'data/proc/train.csv'
+VAL_DATA = 'data/proc/val.csv'
+MODEL_SAVE_PATH = 'models/random_forest_v01.joblib'
+
+def main(args):
+    df_train = pd.read_csv(TRAIN_DATA)
+    x_train = df_train[['floor', 'rooms_count', 'total_meters']]
+    y_train = df_train['price']
+
+    model = RandomForestRegressor(n_estimators=100, random_state=42)
+    model.fit(x_train, y_train)
+    dump(model, args.model)
+    logger.info(f'Saved to {args.model}')
+
+    r2 = model.score(x_train, y_train)
+    y_pred = model.predict(x_val)
+
+
+    feature_importances = model.feature_importances_
+    logger.info(f'Feature importances: {feature_importances}')
+
+    logger.info(f'R2 = {r2:.3f} ')
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-m', '--model',
+                        help='Model save path',
+                        default=MODEL_SAVE_PATH)
+    args = parser.parse_args()
+    main(args)
+```
 
 ### 6. Запуск приложения flask 
 
