@@ -16,6 +16,49 @@ source venv/bin/activate  # mac or linux
 
 pip install -r requirements.txt
 ```
+# Структура проекта
+
+```
+pabd24
+├── data
+│   ├── proc
+│   └── raw
+├── log
+├── models
+├── notebooks
+│   └── ipynb_checkpoints
+│       └── EDA.ipynb
+├── src
+│   ├── downloaded_from_s3.py
+│   ├── parse_cian.py
+│   ├── predict_app.py
+│   ├── preprocess_data.py
+│   ├── test_model.py
+│   ├── train_model.py
+│   └── upload_to_s3.py
+├── test
+│   └── test_api.py
+├── .env
+├── .gitignore
+├── LICENSE
+└── README.md
+```
+
+Корневая директория проекта называется `pabd24`. Она содержит следующие поддиректории и файлы:
+
+- `data` - директория для хранения данных, включая поддиректории `proc` и `raw`
+- `log` - директория для логов
+- `models` - директория для моделей
+- `notebooks` - директория для ноутбуков, включая поддиректорию `ipynb_checkpoints` с файлом `EDA.ipynb`
+- `src` - директория с исходными кодами, включая различные скрипты Python
+- `test` - директория для тестов, включая `test_api.py`
+- `.env` - файл с переменными окружения
+- `.gitignore` - файл для игнорирования файлов в Git
+- `LICENSE` - файл лицензии
+- `README.md` - файл документации
+
+Структура отображает иерархию папок и файлов в виде дерева с использованием символов `├──`, `└──` и `│` для визуализации вложенности.
+
 
 ## Usage
 
