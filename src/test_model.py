@@ -20,7 +20,7 @@ def main(args):
     x_test = df_test[['total_meters']]
     # x_test = df_test[['floor', 'rooms_count', 'total_meters']]
     y_test = df_test['price']
-    model = load(MODEL_SAVE_PATH)
+    model = load(args.model)
     y_pred = model.predict(x_test)
     mae = mean_absolute_error(y_pred, y_test)
     logger.info(f'Test model {MODEL_SAVE_PATH} on {TEST_DATA}, MAE = {mae:.0f}')
