@@ -276,7 +276,120 @@ python src/downloaded_from_s3.py -i data/raw/1_2024-05-13-00-25-22.csv data/raw/
 
 ### 4. Предварительная обработка данных  
 
-todo 
+# preprocess_data.py
+
+Этот скрипт предназначен для предварительной обработки сырых данных и разделения их на тренировочный и валидационный наборы данных.
+
+## Описание скрипта
+
+Скрипт выполняет следующие шаги:
+
+1. **Загрузка данных**:
+    - Загружает несколько CSV файлов, указанных в списке `IN_FILES`.
+    - Объединяет все загруженные файлы в один DataFrame.
+
+2. **Обработка данных**:
+    - Извлекает идентификатор URL и рассчитывает цену за квадратный метр.
+    - Фильтрует данные, оставляя записи с ценой ниже 30 миллионов.
+    - Формирует новый DataFrame с нужными колонками.
+
+3. **Разделение данных**:
+    - Разделяет данные на тренировочный и валидационный наборы в соответствии с заданным размером тренировочного набора (`TRAIN_SIZE`).
+
+4. **Сохранение данных**:
+    - Сохраняет тренировочный и валидационный наборы данных в файлы `train.csv` и `val.csv`.
+
+## Использование
+
+Запуск скрипта осуществляется из командной строки с возможностью указания входных файлов и размера тренировочного набора.
+
+```bash
+python preprocess_data.py -s 0.8 -i data/raw/1.csv data/raw/2.csv
+```
+
+Параметры:
+- `-s`, `--split`: Размер тренировочного набора (по умолчанию 0.9).
+- `-i`, `--input`: Список входных файлов (по умолчанию заданные в `IN_FILES`).
+
+## Пример
+
+Пример команды для запуска:
+
+```bash
+python preprocess_data.py -s 0.8 -i data/raw/1_2024-05-13-00-25-22.csv data/raw/2_2024-05-13-00-12-15.csv data/raw/3_2024-05-13-00-29-59.csv
+```
+
+Этот пример загрузит три CSV файла, объединит их, обработает данные и разделит их на тренировочный (80%) и валидационный (20%) наборы данных.
+
+## Логирование
+
+Скрипт ведет логирование своей работы в файл `log/preprocess_data.log`. Логи включают информацию о ходе выполнения и параметрах запуска.
+
+## Структура папок
+
+- `data/raw/` — исходные данные (CSV файлы).
+- `data/proc/` — обработанные данные (train.csv и val.csv).
+- `log/` — файлы логов.
+
+## Требования
+
+- Python 3.x
+- Библиотеки: `pandas`, `argparse`, `logging`
+
+## Код
+
+```python
+import argparse
+import logging
+import pandas as pd
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    filename='log/preprocess_data.log',
+    encoding='utf-8',
+    level=logging.DEBUG,
+    format='%(asctime)s %(message)s')
+
+IN_FILES = ['data/raw/1_2024-05-13-00-25-22.csv',
+            'data/raw/2_2024-05-13-00-12-15.csv',
+            'data/raw/3_2024-05-13-00-29-59.csv']
+
+OUT_TRAIN = 'data/proc/train.csv'
+OUT_VAL = 'data/proc/val.csv'
+
+TRAIN_SIZE = 0.9
+
+def main(args):
+    main_dataframe = pd.read_csv(args.input[0], delimiter=';')
+    for i in range(1, len(args.input)):
+        data = pd.read_csv(args.input[i], delimiter=';')
+        df = pd.DataFrame(data)
+        main_dataframe = pd.concat([main_dataframe, df], axis=0)
+
+    main_dataframe['url_id'] = main_dataframe['url'].map(lambda x: x.split('/')[-2])
+    main_dataframe['price_per_meter'] = main_dataframe['price'] / main_dataframe['total_meters']
+
+    new_dataframe = main_dataframe[['url_id', 'location', 'floor', 'rooms_count', 'total_meters', 'price', 'price_per_meter']].set_index('url_id')
+
+    new_df = new_dataframe[new_dataframe['price'] < 30_000_000]
+
+    border = int(args.split * len(new_df))
+    train_df, val_df = new_df[0:border], new_df[border:-1]
+    train_df.to_csv(OUT_TRAIN)
+    val_df.to_csv(OUT_VAL)
+    logger.info(f'Write {args.input} to train.csv and val.csv. Train set size: {args.split}')
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-s', '--split', type=float,
+                        help='Split test size',
+                        default=TRAIN_SIZE)
+    parser.add_argument('-i', '--input', nargs='+',
+                        help='List of input files',
+                        default=IN_FILES)
+    args = parser.parse_args()
+    main(args)
+```
 
 ### 5. Обучение модели 
 
