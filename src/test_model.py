@@ -18,6 +18,7 @@ logging.basicConfig(
 def main(args):
     df_test = pd.read_csv(TEST_DATA)
     x_test = df_test[['total_meters']]
+    # x_test = df_test[['floor', 'rooms_count', 'total_meters']]
     y_test = df_test['price']
     model = load(MODEL_SAVE_PATH)
     y_pred = model.predict(x_test)
