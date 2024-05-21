@@ -375,5 +375,5 @@ curl -X POST -H "Content-Type: application/json" -d '{"area": 50}' http://0.0.0.
 Для использования сервиса используйте файл `web/index.html`.  
 
 ### Лицензия
-
 Проект распространяется под лицензией MIT. Смотрите файл [LICENSE](LICENSE) для деталей.
+
