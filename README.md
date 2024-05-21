@@ -119,12 +119,9 @@ SECRET=your_aws_secret_access_key
 
 Чтобы запустить скрипт, выполните следующую команду:
 
-```bash
-python src\upload_to_s3.py
-```
-
-#### Параметры скрипта
-
+```sh
+python src/upload_to_s3.py -i data/raw/file.csv 
+```  
 Скрипт принимает следующие параметры:
 
 - `-i`, `--input`: Список локальных файлов данных для загрузки в хранилище S3. По умолчанию используется список файлов, указанный в переменной `CSV_PATH`.
@@ -213,7 +210,6 @@ python src/downloaded_from_s3.py -i data/raw/1_2024-05-13-00-25-22.csv data/raw/
 ```bash
 python preprocess_data.py -s 0.8 -i data/raw/1.csv data/raw/2.csv
 ```
-
 Параметры:
 - `-s`, `--split`: Размер тренировочного набора (по умолчанию 0.9).
 - `-i`, `--input`: Список входных файлов (по умолчанию заданные в `IN_FILES`).
