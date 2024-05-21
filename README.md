@@ -62,13 +62,10 @@ pabd24
 ## Usage
 
 ### 1. Сбор данных о ценах на недвижимость 
+<li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/parse_cian.py">parse_cian.py</a></strong> </li>
 
-
-Этот скрипт предназначен для сбора данных о ценах на недвижимость в Москве с использованием библиотеки `cianparser`. Скрипт извлекает данные о продаже квартир и сохраняет их в CSV файл.
-
-#### Использование
-
-Основной скрипт `parse_cian.py` собирает данные о продаже однокомнатных, двухкомнатных и трёхкомнатных квартир в Москве и сохраняет их в CSV файлы. Данные извлекаются с первых 50 страниц результатов поиска.
+Этот скрипт предназначен для сбора данных о ценах на недвижимость в Москве с использованием библиотеки `cianparser`.
+Скрипт `parse_cian.py` собирает данные о продаже однокомнатных, двухкомнатных и трёхкомнатных квартир в Москве и сохраняет их в CSV файлы. Данные извлекаются с первых 50 страниц результатов поиска.
 
 #### Запуск скрипта
 
@@ -77,6 +74,8 @@ pabd24
 ```bash
 python src\parse_cian.py
 ```
+Параметры для парсинга можно изменить в скрипте.  
+Подробности см. в [репозитории](https://github.com/Lizochek/pabd24)  
 
 #### Детали скрипта
 
@@ -102,9 +101,10 @@ python src\parse_cian.py
 Скрипт сохраняет собранные данные в CSV файл в директории `data/raw`. Имя файла включает количество комнат и временную метку сбора данных.
 
 ### 2. Выгрузка данных в хранилище S3 
+<li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/upload_to_s3.py">upload_to_s3.py</a></strong> </li>
 Для доступа к хранилищу скопируйте файл `.env` в корень проекта.  
 
-Этот скрипт предназначен для выгрузки выбранных файлов в хранилище S3 с использованием библиотеки `boto3`. Скрипт загружает указанные CSV файлы в указанный бакет S3.
+Этот скрипт предназначен для выгрузки выбранных файлов в хранилище S3 с использованием библиотеки `boto3`. `upload_to_s3.py` загружает указанные CSV файлы в указанный бакет S3.
 
 #### Настройка
 
@@ -114,10 +114,6 @@ python src\parse_cian.py
 KEY=your_aws_access_key_id
 SECRET=your_aws_secret_access_key
 ```
-
-#### Использование
-
- `upload_to_s3.py` загружает указанные CSV файлы в бакет S3.
 
 ##### Запуск скрипта
 
@@ -152,7 +148,7 @@ python src\upload_to_s3.py
 
 
 ### 3. Загрузка данных из S3 на локальную машину  
-
+<li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/downloaded_from_s3.py">downloaded_from_s3.py</a></strong> </li>
 Этот скрипт предназначен для загрузки данных из хранилища S3 на локальную машину. Скрипт использует библиотеку `boto3` для взаимодействия с S3 и загружает указанные файлы на локальный диск.
 
 #### Использование
@@ -187,8 +183,7 @@ python src/downloaded_from_s3.py -i data/raw/1_2024-05-13-00-25-22.csv data/raw/
 ```
 
 ### 4. Предварительная обработка данных  
-
-#### preprocess_data.py
+<li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/preprocess_data.py">preprocess_data.py</a></strong> </li>
 
 Этот скрипт предназначен для предварительной обработки сырых данных и разделения их на тренировочный и валидационный наборы данных.
 
@@ -244,8 +239,7 @@ python preprocess_data.py -s 0.8 -i data/raw/1_2024-05-13-00-25-22.csv data/raw/
 - `log/` — файлы логов.
 
 ### 5. Обучение модели 
-
-#### train_model.py
+<li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/train_model.py">train_model.py</a></strong> </li>
 
 Этот скрипт предназначен для обучения модели и сохранения контрольной точки модели.
 
@@ -306,6 +300,7 @@ python train_model.py -m models/my_linear_model.joblib
 - Логирует  важность признаков.
 
 #### Пример использования RandomForestRegressor:
+<li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/train_model.py">train_model.py</a></strong> </li>
 
 ```python
  df_train = pd.read_csv(TRAIN_DATA)
@@ -322,6 +317,7 @@ python train_model.py -m models/my_linear_model.joblib
 ```
 
 ### 6. Запуск приложения flask 
+<li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/predict_app.py">predict_app.py</a></strong> </li>
 
 Для запуска Flask приложения выполните следующую команду:
 
@@ -374,6 +370,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"area": 50}' http://0.0.0.
 
 
 ### 7. Использование сервиса через веб интерфейс 
+<li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/web/index.html">index.html</a></strong> </li>
 
 Для использования сервиса используйте файл `web/index.html`.  
 
