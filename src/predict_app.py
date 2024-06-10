@@ -38,7 +38,7 @@ def predict(in_data: dict) -> int:
     """
     area = float(in_data['area'])
     #price = model.predict([[area]])
-    price = predict_cpu_bounded(area)
+    price = predict_cpu_bounded(area, 7_000_000)
     return int(price)
 
 
