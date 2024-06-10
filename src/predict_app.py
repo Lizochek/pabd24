@@ -38,8 +38,8 @@ def predict(in_data: dict) -> int:
     """
     area = float(in_data['total_meters'])
     #price = model.predict([[area]])
-    price = predict_cpu_bounded(area, 7_000_000)
-    #price = predict_cpu_multithread(area, 7_000_000)
+    #price = predict_cpu_bounded(area, 7_000_000)
+    price = predict_cpu_multithread(area, 7_000_000)
     return int(price)
 
 @app.route('/favicon.ico')
