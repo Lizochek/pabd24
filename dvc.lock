@@ -1,11 +1,11 @@
 schema: '2.0'
 stages:
   preprocess_train:
-    cmd: python .\src\preprocess_data.py
-  preprocess_test:
-    cmd: python .\src\preprocess_data.py -s 0 -i data/raw/1_2024-05-13-00-25-22.csv
+    cmd: python .\src\preprocess_data.py -s 1 -i data/raw/1_2024-05-13-00-25-22.csv
       data/raw/2_2024-05-13-00-12-15.csv data/raw/3_2024-05-13-00-29-59.csv
+  preprocess_test:
+    cmd: python .\src\preprocess_data.py -s 0 -i data/raw/1_2024-06-03_19-17.csv
   train_model:
-    cmd: python src\train_model.py
+    cmd: python src\train_model.py -m models/linear_regression_v01.joblib
   test_model:
-    cmd: python src\test_model.py
+    cmd: python src\test_model.py -m models/linear_regression_v01.joblib
