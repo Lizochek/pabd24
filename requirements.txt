@@ -1,16 +1,16 @@
-flask~=3.0.3
+# external requirements
+flask
 flask-cors
-cianparser~=1.0.4
-scikit-learn~=1.4.2
-pandas~=2.2.2
-boto3~=1.34.108
-python-dotenv~=1.0.1
+flask_httpauth
+cianparser
+scikit-learn
+pandas
+boto3
+python-dotenv
 PyGithub
 jupyter
 matplotlib
-xgboost
-HTTPTokenAuth
-DateTime~=5.5
-joblib~=1.4.2
+DateTime
+joblib
 requests
 dvc[s3]
