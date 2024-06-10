@@ -9,7 +9,8 @@ PyGithub
 jupyter
 matplotlib
 xgboost
-
+HTTPTokenAuth
 DateTime~=5.5
 joblib~=1.4.2
 requests
+dvc[s3]
