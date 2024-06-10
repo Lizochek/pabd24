@@ -9,7 +9,7 @@
 Клонируйте репозиторий, создайте виртуальное окружение, активируйте и установите зависимости:  
 
 ```sh
-git clone https://github.com/yourgit/pabd24
+git clone https://github.com/Lizochek/pabd24
 cd pabd24
 python -m venv venv
 
