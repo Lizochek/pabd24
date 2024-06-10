@@ -37,8 +37,8 @@ def predict(in_data: dict) -> int:
     :rtype: int
     """
     area = float(in_data['area'])
-    price = model.predict([[area]])
-    # price = predict_cpu_bounded(area, 7_000_000)
+    #price = model.predict([[area]])
+    price = predict_cpu_bounded(area, 7_000_000)
     return int(price)
 
 @app.route('/favicon.ico')
