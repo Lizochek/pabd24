@@ -304,9 +304,8 @@ python train_model.py -m models/my_linear_model.joblib
 
 ### 6. Запуск приложения flask 
 <li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/predict_app.py">predict_app.py</a></strong> </li>
-Данное приложение можно запустить на двух серверах: flask(порт 5000) и gunicorn(порт 8000), а также локально.
 
-Для запуска на flask:
+Данное приложение можно запустить на двух серверах: flask(порт 5000) и gunicorn(порт 8000), а также локально.
 
 Для локального запуска приложения выполните следующую команду в терминале:
 
@@ -473,6 +472,7 @@ python test\test_parallel.py
 ### 8. Запуск на сервере 
 
 Порт, на котором приложение запущено в данный момент: 'http://192.144.14.11:8000/predict'
+Ссылка на отчёт по исследованию поведения серверов flask и gunicorn под разными видами нагрузки [результат](https://github.com/Lizochek/pabd24/blob/main/docs/report_3.md)
 
 ### Лицензия
 Проект распространяется под лицензией MIT. Смотрите файл [LICENSE](LICENSE) для деталей.
