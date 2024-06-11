@@ -102,8 +102,13 @@ python src\parse_cian.py
 
 ### 2. Выгрузка данных в хранилище S3 
 <li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/upload_to_s3.py">upload_to_s3.py</a></strong> </li>
-Для доступа к хранилищу скопируйте файл `.env` в корень проекта.  
+Для доступа к хранилищу скопируйте файл `.env` в корень проекта. 
 
+Чтобы запустить скрипт, выполните следующую команду:
+
+```bash
+python src/upload_to_s3.py
+```
 Этот скрипт предназначен для выгрузки выбранных файлов в хранилище S3 с использованием библиотеки `boto3`. `upload_to_s3.py` загружает указанные CSV файлы в указанный бакет S3.
 
 #### Настройка
@@ -182,6 +187,12 @@ python src/downloaded_from_s3.py -i data/raw/1_2024-05-13-00-25-22.csv data/raw/
 ### 4. Предварительная обработка данных  
 <li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/preprocess_data.py">preprocess_data.py</a></strong> </li>
 
+Чтобы запустить скрипт, выполните следующую команду:
+
+```bash
+python src/preprocess_data.py
+```
+
 Этот скрипт предназначен для предварительной обработки сырых данных и разделения их на тренировочный и валидационный наборы данных.
 
 #### Описание скрипта
@@ -236,6 +247,10 @@ python preprocess_data.py -s 0.8 -i data/raw/1_2024-05-13-00-25-22.csv data/raw/
 
 ### 5. Обучение модели 
 <li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/train_model.py">train_model.py</a></strong> </li>
+
+```bash
+python src/train_model.py
+```
 
 Этот скрипт предназначен для обучения модели и сохранения контрольной точки модели.
 
