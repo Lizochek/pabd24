@@ -22,9 +22,17 @@ pip install -r requirements.txt
 
 ```
 pabd24
+├── .dvc
+│   ├── cache
+│   ├── tmp
+│   ├── .gitignore
+│   └── config
 ├── data
 │   ├── proc
-│   └── raw
+│   ├── raw
+│   └── raw.dvc
+├── docs
+│   └── report_3.md
 ├── log
 ├── models
 ├── notebooks
@@ -37,12 +45,22 @@ pabd24
 │   ├── preprocess_data.py
 │   ├── test_model.py
 │   ├── train_model.py
-│   └── upload_to_s3.py
+│   ├── tupload_to_s3.py
+│   └── utils.py
+├── static
+│   └── favicon.ico
 ├── test
-│   └── test_api.py
+│   ├── test_api.py
+│   └── test_parallel.py
+├── venv
+├── web
+│   └── index.html
 ├── .env
 ├── .gitignore
+├── dvc.lock
+├── dvc.yaml
 ├── LICENSE
+├── requirements.txt
 └── README.md
 ```
 
