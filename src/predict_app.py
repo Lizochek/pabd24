@@ -38,7 +38,7 @@ def predict(in_data: dict) -> int:
     """
     area = float(in_data['total_meters'])
     #price = model.predict([[area]])
-    price = predict_cpu_bounded(area, 16_000_000)
+    price = predict_cpu_bounded(area, 17_400_000)
     #price = predict_cpu_multithread(area, 7_000_000)
     return int(price)
 
