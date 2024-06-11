@@ -355,9 +355,9 @@ python train_model.py -m models/my_linear_model.joblib
 ### 6. Запуск приложения flask 
 <li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/predict_app.py">predict_app.py</a></strong> </li>
 
-* Данное приложение можно запустить на двух серверах: flask(порт 5000) и gunicorn(порт 8000), а также локально.
+Данное приложение можно запустить на двух серверах: flask(порт 5000) и gunicorn(порт 8000), а также локально.
 
-* Для локального запуска приложения выполните следующую команду в терминале:
+Для локального запуска приложения выполните следующую команду в терминале:
 
 ```bash
 python src/predict_app.py
