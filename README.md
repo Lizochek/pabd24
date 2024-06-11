@@ -287,40 +287,17 @@ python train_model.py -m models/my_linear_model.joblib
 - `models/` — сохраненные модели.
 - `log/` — файлы логов.
 
-### Обучение модели с использованием RandomForestRegressor
-
-В случае использования модели случайного леса (RandomForestRegressor) скрипт выполняет дополнительные шаги:
-
-- Загружает валидационные данные.
-- Оценивает модель на валидационном наборе данных.
-- Логирует  важность признаков.
-
-#### Пример использования RandomForestRegressor:
-<li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/train_model.py">train_model.py</a></strong> </li>
-
-```python
- df_train = pd.read_csv(TRAIN_DATA)
- x_train = df_train[['floor', 'rooms_count', 'total_meters']]
- y_train = df_train['price']
-
- model = RandomForestRegressor(n_estimators=100, random_state=42)
- model.fit(x_train, y_train)
- dump(model, args.model)
- logger.info(f'Saved to {args.model}')
-
- r2 = model.score(x_train, y_train)
- y_pred = model.predict(x_val)
-```
-
 ### 6. Запуск приложения flask 
 <li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/src/predict_app.py">predict_app.py</a></strong> </li>
+Данное приложение можно запустить на двух серверах: flask(порт 5000) и gunicorn(порт 8000), а также локально.
 
-Для запуска Flask приложения выполните следующую команду:
+Для запуска на flask:
+
+Для локального запуска приложения выполните следующую команду в терминале:
 
 ```bash
 python src/predict_app.py
 ```
-
 Приложение будет доступно по адресу `http://0.0.0.0:5000`.
 
 #### Использование
@@ -332,30 +309,12 @@ python src/predict_app.py
 ```
 <h1>Housing price service.</h1> Use /predict endpoint
 ```
+Введите площадь квартиры в поле area и нажмите submit.
 
 #### Эндпоинт `/predict`
 
 Для предсказания цены на недвижимость используйте эндпоинт `/predict`. Отправьте POST-запрос с параметрами недвижимости в формате JSON.
 
-#### Пример запроса
-
-```bash
-curl -X POST -H "Content-Type: application/json" -d '{"area": 50}' http://0.0.0.0:5000/predict
-```
-
-#### Пример ответа
-
-```json
-{
-  "price": 10000000
-}
-```
-
-#### Структура необходимая для работы скрипта
-
-- `src/predict_app.py` — основной файл приложения Flask.
-- `static/` — директория для статических файлов (например, `favicon.ico`).
-- `requirements.txt` — список зависимостей проекта.
 
 #### Объяснение работы кода
 
@@ -365,6 +324,132 @@ curl -X POST -H "Content-Type: application/json" -d '{"area": 50}' http://0.0.0.
 - Маршрут `/predict` принимает POST-запрос с параметрами недвижимости в формате JSON, использует функцию `predict` для расчета цены и возвращает результат в формате JSON.
 
 
+## Создание виртуальной машины и подключение по SSH. Клонирование проекта на виртуальную машину
+
+* Создайте виртуальную машину на https://console.cloud.ru. Затем настройте группы безопасности для открытия портов 5000 и 8000.
+
+* В Power Shell(в корне своего пользователя) создайте пары публичный-приватный ключ 
+```shell
+ssh-keygen
+```
+
+### Установка
+
+* Подключитесь по SSH к виртуальной машине (в PowerShell в корне своего пользователя):
+
+```sh
+ssh user23@192.144.14.11
+```
+
+* Запустите оболочку bash:
+
+```sh
+bash
+```
+
+* Обновите индексы пакетов системы:
+
+```sh
+sudo apt update
+```
+
+* Установите модуль venv для Python 3:
+
+```sh
+sudo apt install python3-venv
+```
+
+* Клонируйте репозиторий, создайте виртуальное окружение, активируйте его и установите зависимости:
+
+```sh
+git clone https://github.com/Lizochek/pabd24
+cd pabd24
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+* Открыть второе окно PowerShell в директории проекта `pabd24`, там где есть файл `.env`.  
+Копирование файла `.env` из локальный машины на сервер выполняется командой:
+
+```sh
+scp .\.env user23@192.144.14.9:/home/user23/pabd24
+```
+#### Gunicorn сервер
+* Установка и запуск: 
+```shell
+pip install gunicorn
+gunicorn -b 0.0.0.0 -w 1 src.predict_app:app --daemon
+```
+* Для исследований следует опустить флажок `--daemon`, тогда можно легко остановить сервер нажатем `Ctr-C`. 
+Остановить запущенный в фоне процесс можно командой 
+```shell
+pkill gunicorn
+```
+## Использование
+
+### Загрузка данных из S3 на виртуальную машину
+
+Создайте директорию для исходных данных и выполните скрипт для загрузки данных:
+
+```sh
+mkdir data/raw
+python src/download_to_s3.py
+```
+
+### Предварительная обработка данных
+
+Создайте директорию для обработанных данных и выполните скрипт для их предварительной обработки:
+
+```sh
+mkdir data/proc
+python src/preprocess_data.py
+
+cat log/preprocess_data.log # посмотреть лог
+```
+
+### Обучение и тестирование модели
+
+Выполните команды для обучения и тестирования модели:
+
+```sh
+python src/train_model.py
+python src/test_model.py
+```
+### Тестирование нагрузки
+
+Выберите порт для тестрирования и укажите его в test/test_parallel.py и в index.html в endpoint.
+
+* Подключитесь по SSH к виртуальной машине (в PowerShell в корне своего пользователя):
+
+```sh
+ssh user23@192.144.14.11
+```
+* Запустить оболочку bash
+```shell
+bash
+```
+* Создайте виртуальное окружение, активируйте его и установите зависимости:
+
+```sh
+git clone https://github.com/Lizochek/pabd24
+cd pabd24
+python3 -m venv venv
+source venv/bin/activate
+```
+* Чтобы подтянуть изменения из удалённого репозитория выполните команду:
+```sh
+git pull
+```
+* Меняйте нагрузку в файле src/predict_app.py, если используете gunicorn вместо import utils напишите src.utils:
+```sh
+nano src/predict_app.py
+```
+* Запустите index.html в браузере, нажмите submit и проверьте предсказывается ли цена
+* Зайдите в IDE и в терминале выполните команду:
+```sh
+python test\test_parallel.py
+```
 ### 7. Использование сервиса через веб интерфейс 
 <li><strong><a href="https://github.com/Lizochek/pabd24/blob/main/web/index.html">index.html</a></strong> </li>
 
