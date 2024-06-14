@@ -36,11 +36,11 @@ def predict(in_data: dict) -> int:
     :return: House price, RUB.
     :rtype: int
     """
-    area = float(in_data['total_meters'])
+    area = in_data['total_meters']
     #price = model.predict([[area]])
     price = predict_cpu_bounded(area, 9_900_000)
     #price = predict_cpu_multithread(area, 7_000_000)
-    return int(price)
+    return price
 
 @app.route('/favicon.ico')
 def favicon():
