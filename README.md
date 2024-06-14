@@ -424,7 +424,7 @@ pip install -r requirements.txt
 Копирование файла `.env` из локальный машины на сервер выполняется командой:
 
 ```sh
-scp .\.env user23@192.144.14.9:/home/user23/pabd24
+scp .\.env user23@192.144.14.11:/home/user22/pabd24
 ```
 #### Gunicorn сервер
 * Установка и запуск: 
