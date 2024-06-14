@@ -2,15 +2,11 @@
 flask
 flask-cors
 flask_httpauth
-cianparser~=1.0.4
-scikit-learn~=1.4.2
+cianparser
+scikit-learn
 pandas
 boto3
 python-dotenv
-PyGithub
-jupyter
-matplotlib
-DateTime
 joblib
 requests
 dvc[s3]
