@@ -23,6 +23,5 @@ def test_10():
     with Pool(10) as p:
         print(*p.map(do_request, range(10, 110, 10)))
 
-
 if __name__ == '__main__':
     test_10()
