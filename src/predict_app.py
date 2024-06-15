@@ -45,7 +45,9 @@ def predict(in_data: dict) -> int:
     price = model.predict([[area,
                             is_first,
                             is_last,
+                            floor,
                             floors_count,
+                            rooms_count
                             ]])
     #price = predict_cpu_bounded(area, 7_000_000)
     #price = predict_cpu_multithread(area, 7_000_000)
