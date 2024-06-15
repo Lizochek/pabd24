@@ -19,7 +19,8 @@ def do_request(area: int) -> str:
     resp = requests.post(
         endpoint,
         json=data,
-        headers=HEADERS
+        headers=HEADERS,
+        proxies = proxies
     ).text
     t = time.time() - t0
     return f'Waited {t:0.2f} sec ' + resp
