@@ -14,7 +14,7 @@ logging.basicConfig(
     format='%(asctime)s %(message)s')
 
 TRAIN_DATA = 'data/proc/train.csv'
-VAL_DATA = 'data/proc/val.csv'
+VAL_DATA = 'data/proc/test.csv'
 MODEL_SAVE_PATH = 'models/linear_regression_ff_v01.joblib'
 
 def main(args):
