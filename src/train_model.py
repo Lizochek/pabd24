@@ -19,10 +19,10 @@ MODEL_SAVE_PATH = 'models/linear_regression_ff_v01.joblib'
 
 def main(args):
     df_train = pd.read_csv(TRAIN_DATA)
-    x_train = df_train[['floor', 'rooms_count', 'total_meters']]
+    x_train = df_train[['total_meters']]
     y_train = df_train['price']
     df_val = pd.read_csv(VAL_DATA)
-    x_val = df_val[['floor', 'rooms_count', 'total_meters']]
+    x_val = df_val[['total_meters']]
     y_val = df_val['price']
 
     model = RandomForestRegressor(n_estimators=100, random_state=42)
