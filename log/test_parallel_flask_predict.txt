@@ -1,31 +1,31 @@
-Waited 0.11 sec {
-  "price": 8630096
+Waited 1.11 sec {
+  "price": 2000000
 }
- Waited 0.12 sec {
-  "price": 10481364
+ Waited 1.10 sec {
+  "price": 4000000
 }
- Waited 0.11 sec {
-  "price": 12332632
+ Waited 1.09 sec {
+  "price": 6000000
 }
- Waited 0.10 sec {
-  "price": 14183899
+ Waited 1.09 sec {
+  "price": 8000000
 }
- Waited 0.11 sec {
-  "price": 16035167
+ Waited 1.10 sec {
+  "price": 10000000
 }
- Waited 0.10 sec {
-  "price": 17886435
+ Waited 1.09 sec {
+  "price": 12000000
 }
- Waited 0.10 sec {
-  "price": 19737703
+ Waited 1.09 sec {
+  "price": 14000000
 }
- Waited 0.11 sec {
-  "price": 21588971
+ Waited 1.08 sec {
+  "price": 16000000
 }
- Waited 0.12 sec {
-  "price": 23440239
+ Waited 1.10 sec {
+  "price": 18000000
 }
- Waited 0.11 sec {
-  "price": 25291507
+ Waited 1.09 sec {
+  "price": 20000000
 }
 
