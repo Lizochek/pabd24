@@ -52,7 +52,7 @@ def predict(in_data: dict) -> int:
     # price = model.predict([[area]])
     # price = predict_io_bounded(area)
 
-    price = predict_cpu_bounded(area, 10_000_000)
+    price = predict_cpu_bounded(area, 12_000_000)
     # price = predict_cpu_multithread(area, 7_000_000)
     return int(price)
 
