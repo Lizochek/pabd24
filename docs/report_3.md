@@ -45,21 +45,21 @@
 ### Результат и обсуждение
 
 1) При запуске `predict_io_bounded` на dev-сервере Flask получен [результат](https://github.com/Lizochek/pabd24/tree/main/log/test_parallel_flask_predict.txt). 
-Все запросы обрабатываются одновременно, в среднем за 0.11 секунды. На продакшене это приемлемо, потому что задержка минимальна и сервер не перегружен вычислениями.
+Все запросы обрабатываются одновременно, в среднем за 1.11 секунды. На продакшене это приемлемо, потому что задержка минимальна и сервер не перегружен вычислениями.
 
 2) При запуске `predict_io_bounded` на prod-сервере Gunicorn получен [результат](https://github.com/Lizochek/pabd24/tree/main/log/test_parallel_gunicorn_predict.txt). 
 Все запросы обрабатываются последовательно, в среднем за 2.5 секунды. На продакшене это предпочтительно, потому что Gunicorn лучше обрабатывает множественные запросы.
 
-3) При запуске `predict_cpu_bounded` на dev-сервере Flask с `n=7_000_000` получен [результат](https://github.com/Lizochek/pabd24/tree/main/log/test_par_flask_predict_cpu_bounded_7_000_000.txt). 
-Все запросы обрабатываются одновременно, в среднем за 0.113 секунды. На продакшене это неприемлемо, потому что высокая вычислительная нагрузка приводит к задержкам.
+3) При запуске `predict_cpu_bounded` на dev-сервере Flask с `n=11_000_000` получен [результат](https://github.com/Lizochek/pabd24/tree/main/log/test_par_flask_predict_cpu_bounded_11_000_000.txt). 
+Все запросы обрабатываются одновременно, в среднем за 4.8 секунды. На продакшене это неприемлемо, потому что высокая вычислительная нагрузка приводит к задержкам.
 
-4) При запуске `predict_cpu_bounded` на prod-сервере Gunicorn с `n=17_300_009` получен [результат](https://github.com/Lizochek/pabd24/tree/main/log/test_par_gunicorn_cpu_bounded_17_300_009.txt). 
+4) При запуске `predict_cpu_bounded` на prod-сервере Gunicorn с `n=100_000_000` получен [результат](https://github.com/Lizochek/pabd24/tree/main/log/test_par_gunicorn_cpu_bounded_10_000_000.txt). 
 Запросы обрабатываются последовательно, в среднем за 7.183 секунды. На продакшене это предпочтительно, потому что Gunicorn стабильно распределяет нагрузку.
 
-5) При запуске `predict_cpu_multithread` на dev-сервере Flask с `n=7_000_000` получен [результат](https://github.com/Lizochek/pabd24/tree/main/log/test_par_flask_cpu_multithread_7_000_000.txt). 
+5) При запуске `predict_cpu_multithread` на dev-сервере Flask с `n=50_000_000` получен [результат](https://github.com/Lizochek/pabd24/tree/main/log/test_par_flask_cpu_multithread_50_000_000.txt). 
 Все запросы обрабатываются одновременно, в среднем за 0.095 секунд. На продакшене это неприемлемо, потому что задержка слишком велика.
 
-6) При запуске `predict_cpu_multithread` на prod-сервере Gunicorn с `n=87_000_089` получен [результат](https://github.com/Lizochek/pabd24/tree/main/log/test_par_gunicorn_cpu_multithread_87_000_089.txt). 
+6) При запуске `predict_cpu_multithread` на prod-сервере Gunicorn с `n=560_000_089` получен [результат](https://github.com/Lizochek/pabd24/tree/main/log/test_par_gunicorn_cpu_multithread_560_000_089.txt). 
 Запросы обрабатываются последовательно, в среднем за 9.5 секунды. На продакшене это предпочтительно, потому что Gunicorn может лучше распределять ресурсы для тяжелых вычислений.
 
 ### Заключение
