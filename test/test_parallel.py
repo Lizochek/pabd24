@@ -3,10 +3,10 @@ from multiprocessing import Pool
 import requests
 from dotenv import dotenv_values
 
-proxies = {
-    "http:" "",
-    "https:" "",
-}
+# proxies = {
+#     "http:" "",
+#     "https:" "",
+# }
 
 config = dotenv_values(".env")
 endpoint = 'http://192.144.14.11:5000/predict'
@@ -19,8 +19,7 @@ def do_request(area: int) -> str:
     resp = requests.post(
         endpoint,
         json=data,
-        headers=HEADERS,
-        proxies = proxies
+        headers=HEADERS
     ).text
     t = time.time() - t0
     return f'Waited {t:0.2f} sec ' + resp
