@@ -11,4 +11,5 @@ joblib
 requests
 dvc[s3]
 numpy
-xgboost
+
+
