@@ -7,6 +7,7 @@ proxies = {
     "http:" "",
     "https:" "",
 }
+
 config = dotenv_values(".env")
 endpoint = 'http://192.144.14.11:5000/predict'
 HEADERS = {"Authorization": f"Bearer {config['APP_TOKEN']}"}
