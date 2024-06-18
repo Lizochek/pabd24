@@ -21,7 +21,8 @@ MODEL_SAVE_PATH = 'models/linear_regression_v01.joblib'
 
 def main(args):
     df_train = pd.read_csv(TRAIN_DATA)
-    x_train = df_train[['floor', 'rooms_count', 'total_meters']]
+    x_train = df_train[['total_meters', 'floor', 'floors_count', 'rooms_count']]
+
     y_train = df_train['price']
 
     linear_model = LinearRegression()
