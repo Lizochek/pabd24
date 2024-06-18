@@ -30,7 +30,7 @@ def main(args):
     x_test.loc[:, 'is_first'] = is_first
     x_test.loc[:, 'is_last'] = is_last
 
-    x_test = df_test[['total_meters', 'floor', 'floors_count', 'rooms_count']]
+    # x_test = df_test[['total_meters', 'floor', 'floors_count', 'rooms_count']]
     # x_test = df_test[['floor', 'rooms_count', 'total_meters']]
     y_test = df_test['price']
     model = load(args.model)
