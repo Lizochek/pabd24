@@ -41,8 +41,6 @@ def main(args):
     logger.info(f'Saved to {args.model}')
 
     r2 = model.score(x_train, y_train)
-    y_pred = model.predict(x_val)
-    mae = mean_absolute_error(y_pred, y_val)
 
     # Выводим важность признаков
     feature_importances = model.feature_importances_
