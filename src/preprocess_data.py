@@ -19,7 +19,7 @@ OUT_TRAIN = 'data/proc/train.csv'
 OUT_TEST = 'data/proc/test.csv'
 
 TRAIN_SIZE = 0.9
-PRICE_THRESHOLD = 30_000_000
+PRICE_THRESHOLD = 100_000_000
 
 
 def main(args):
@@ -31,7 +31,7 @@ def main(args):
 
     main_dataframe['url_id'] = main_dataframe['url'].map(lambda x: x.split('/')[-2])
     new_dataframe = main_dataframe[['author_type', 'url_id', 'floor', 'floors_count', 'rooms_count', 'total_meters', 'price', 'district']].set_index('url_id')
-    new_dataframe = new_dataframe.loc[new_dataframe.price <= 100_000_000,:]
+
     new_df = new_dataframe[new_dataframe['price'] < PRICE_THRESHOLD]
 
     border = int(args.split * len(new_df))
