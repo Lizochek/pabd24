@@ -21,7 +21,21 @@ MODEL_SAVE_PATH = 'models/linear_regression_v01.joblib'
 
 def main(args):
     df_train = pd.read_csv(TRAIN_DATA)
-    x_train = df_train[['total_meters', 'floor', 'floors_count', 'rooms_count']]
+
+    # Преобразование столбцов в целые числа
+    floor = df_train['floor'].astype(int)
+    floors_count = df_train['floors_count'].astype(int)
+
+    # Определение признаков is_first и is_last
+    is_first = (floor == 1).astype(int)
+    is_last = (floor == floors_count).astype(int)
+
+    # Создание DataFrame с признаками для обучения
+    x_train = df_train[['total_meters', 'floor', 'floors_count', 'rooms_count']].copy()
+    x_train.loc[:, 'is_first'] = is_first
+    x_train.loc[:, 'is_last'] = is_last
+
+    # Целевая переменная
     y_train = df_train['price']
 
     linear_model = LinearRegression()

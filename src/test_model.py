@@ -17,6 +17,19 @@ logging.basicConfig(
 
 def main(args):
     df_test = pd.read_csv(TEST_DATA)
+    # Преобразование столбцов в целые числа
+    floor = df_test['floor'].astype(int)
+    floors_count = df_test['floors_count'].astype(int)
+
+    # Определение признаков is_first и is_last
+    is_first = (floor == 1).astype(int)
+    is_last = (floor == floors_count).astype(int)
+
+    # Создание DataFrame с признаками для обучения
+    x_test = df_test[['total_meters', 'floor', 'floors_count', 'rooms_count']].copy()
+    x_test.loc[:, 'is_first'] = is_first
+    x_test.loc[:, 'is_last'] = is_last
+
     x_test = df_test[['total_meters', 'floor', 'floors_count', 'rooms_count']]
     # x_test = df_test[['floor', 'rooms_count', 'total_meters']]
     y_test = df_test['price']
