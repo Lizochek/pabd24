@@ -30,7 +30,7 @@ def main(args):
         main_dataframe = pd.concat([main_dataframe, df], axis=0)
 
     main_dataframe['url_id'] = main_dataframe['url'].map(lambda x: x.split('/')[-2])
-    new_dataframe = main_dataframe[['url_id', 'floor', 'floors_count', 'rooms_count', 'total_meters', 'price']].set_index('url_id')
+    new_dataframe = main_dataframe[['author_type', 'url_id', 'floor', 'floors_count', 'rooms_count', 'total_meters', 'price', 'district']].set_index('url_id')
 
     new_df = new_dataframe[new_dataframe['price'] < PRICE_THRESHOLD]
 
