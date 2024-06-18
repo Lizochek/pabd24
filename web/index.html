@@ -27,14 +27,14 @@ input:valid {
   <label for="area">Area, m2:</label><br>
   <input type="number" id="area" name="area" required min="1" max="100" value="44"><br><br>
 
-   <label for="rooms">Number of rooms:</label>
-  <input type="number" id="rooms" name="rooms" required min="1" max="3" value="1"><br><br>
+<!--   <label for="rooms">Number of rooms:</label>-->
+<!--  <input type="number" id="rooms" name="rooms" required min="1" max="3" value="1"><br><br>-->
 
-  <label for="floor">Floor:</label>
-  <input type="number" id="floor" name="floor" required min="1" max="100" value="1">
+<!--  <label for="floor">Floor:</label>-->
+<!--  <input type="number" id="floor" name="floor" required min="1" max="100" value="1">-->
 
-  <label for="floors">Total number of floors in house:</label>
-  <input type="number" id="floors" name="floors" required min="1" max="100" value="1"><br><br>
+<!--  <label for="floors">Total number of floors in house:</label>-->
+<!--  <input type="number" id="floors" name="floors" required min="1" max="100" value="1"><br><br>-->
 
   <label for="token">Enter secret token</label><br>
   <input type="string" id="token" name="token" required><br><br>
@@ -63,9 +63,9 @@ input:valid {
     }
     let warn = "Wrong connection!";
     let house_params = {total_meters: area.value};
-    rooms_count: rooms.value,
-    floor: floor.value,
-    floors_count: floors.value };
+<!--    rooms_count: rooms.value,-->
+<!--    floor: floor.value,-->
+<!--    floors_count: floors.value };-->
     postJSON(house_params, token.value).then((response) => {
       const price = response['price'];
       result.innerHTML = price;

@@ -37,20 +37,20 @@ def predict(in_data: dict) -> int:
     :rtype: int
     """
     area = float(in_data['total_meters'])
-    rooms_count = int(in_data['rooms_count'])
-    floor = int(in_data['floor'])
-    floors_count = int(in_data['floors_count'])
-    is_first = (floor == 1)
-    is_last = (floor == floors_count)
-    price = model.predict([[area,
-                            is_first,
-                            is_last,
-                            floor,
-                            floors_count,
-                            rooms_count
-                            ]])
+    # rooms_count = int(in_data['rooms_count'])
+    # floor = int(in_data['floor'])
+    # floors_count = int(in_data['floors_count'])
+    # is_first = (floor == 1)
+    # is_last = (floor == floors_count)
+    # price = model.predict([[area,
+    #                         is_first,
+    #                         is_last,
+    #                         floor,
+    #                         floors_count,
+    #                         rooms_count
+    #                         ]])
 
-    # price = predict_io_bounded(area)
+    price = predict_io_bounded(area)
 
     # price = predict_cpu_bounded(area, 100_000_000)
     #price = predict_cpu_multithread(area, 560_000_000)
