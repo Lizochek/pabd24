@@ -43,11 +43,11 @@ def predict(in_data: dict) -> int:
     is_first = (floor == 1)
     is_last = (floor == floors_count)
     price = model.predict([[area,
-                            is_first,
-                            is_last,
+                            rooms_count,
                             floor,
                             floors_count,
-                            rooms_count,
+                            is_first,
+                            is_last,
                             ]])
 
     # price = predict_io_bounded(area)

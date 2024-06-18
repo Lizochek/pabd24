@@ -1,100 +1,207 @@
+<!--<html>-->
+<!--<head>-->
+
+<!--</head>-->
+<!--  <style>-->
+<!--body {-->
+<!--  background-color: powderblue;-->
+<!--}-->
+
+<!--#result {-->
+<!--  color: red;-->
+<!--}-->
+
+<!--input:invalid {-->
+<!--  border: 2px dashed red;-->
+<!--}-->
+
+<!--input:valid {-->
+<!--  border: 2px solid black;-->
+<!--}-->
+<!--  </style>-->
+<!--<body>-->
+
+<!--<h1>House price predict app</h1>-->
+
+<!--<form>`qwe-->
+<!--  <label for="area">Area, m2:</label><br>-->
+<!--  <input type="number" id="area" name="area" required min="1" max="100" value="44"><br><br>-->
+
+<!--   <label for="rooms">Number of rooms:</label>-->
+<!--  <input type="number" id="rooms" name="rooms" required min="1" max="3" value="2"><br><br>-->
+
+<!--  <label for="floor">Floor:</label>-->
+<!--  <input type="number" id="floor" name="floor" required min="1" max="100" value="1">-->
+
+<!--  <label for="floors">Total number of floors in house:</label>-->
+<!--  <input type="number" id="floors" name="floors" required min="1" max="100" value="15"><br><br>-->
+
+<!--  <label for="token">Enter secret token</label><br>-->
+<!--  <input type="string" id="token" name="token" required><br><br>-->
+<!--  <input type="submit" value="Submit" id="submit_btn" >-->
+<!--</form>-->
+
+<!--<h3>Result: </h3>-->
+
+<!--<span id="result"></span>-->
+
+<!--<script>-->
+<!--//  const area = document.getElementById("area");-->
+<!--//  const submit_btn = document.getElementById("submit_btn");-->
+<!--//  const result = document.getElementById("result");-->
+
+<!--  //const ENDPOINT = "http://127.0.0.1:5000/predict";-->
+
+<!--  //const ENDPOINT = "http://192.144.14.11:5000/predict";-->
+<!--  const ENDPOINT = "http://192.144.14.11:8000/predict";-->
+<!--  submit_btn.addEventListener("click", submit_click, false);-->
+
+<!--  function submit_click(event) {-->
+<!--    event.preventDefault();-->
+<!--    if (area.valid){-->
+<!--      console.log("Valid!");-->
+<!--    }-->
+<!--        if (rooms.valid){-->
+<!--      console.log("Valid!");-->
+<!--    }-->
+<!--    let warn = "Wrong connection!";-->
+<!--    let house_params = {total_meters: area.value,-->
+<!--    rooms_count: rooms.value,-->
+<!--    floor: floor.value,-->
+<!--    floors_count: floors.value };-->
+<!--    postJSON(house_params, token.value).then((response) => {-->
+<!--      const price = response['price'];-->
+<!--      result.innerHTML = price;-->
+<!--    })-->
+<!--    result.innerHTML = warn;-->
+<!--  }-->
+
+<!--async function postJSON(data, token) {-->
+<!--  try {-->
+<!--    const response = await fetch(ENDPOINT, {-->
+<!--      method: "POST",-->
+<!--      headers: {-->
+<!--        "Content-Type": "application/json",-->
+<!--        "Authorization": `Bearer ${token}`,-->
+<!--        "mode": "no-cors",-->
+<!--      },-->
+<!--      body: JSON.stringify(data),-->
+<!--    });-->
+
+<!--    const result = await response.json();-->
+<!--    console.log("Success:", result);-->
+<!--    return result;-->
+<!--  } catch (error) {-->
+<!--    console.error("Error:", error);-->
+<!--  }-->
+<!--}-->
+
+<!--</script>-->
+
+<!--</body>-->
+
+<!--</html>-->
+
+<!DOCTYPE html>
 <html>
 <head>
-
-</head>
   <style>
-body {
-  background-color: powderblue;
-}
+    body {
+      background-color: powderblue;
+    }
 
-#result {
-  color: red;
-}
+    #result {
+      color: red;
+    }
 
-input:invalid {
-  border: 2px dashed red;
-}
+    input:invalid {
+      border: 2px dashed red;
+    }
 
-input:valid {
-  border: 2px solid black;
-}
+    input:valid {
+      border: 2px solid black;
+    }
   </style>
+</head>
 <body>
-
 <h1>House price predict app</h1>
-
-<form>`qwe
+<form id="predictForm">
   <label for="area">Area, m2:</label><br>
   <input type="number" id="area" name="area" required min="1" max="100" value="44"><br><br>
 
-   <label for="rooms">Number of rooms:</label>
+  <label for="rooms">Number of rooms:</label>
   <input type="number" id="rooms" name="rooms" required min="1" max="3" value="2"><br><br>
 
   <label for="floor">Floor:</label>
-  <input type="number" id="floor" name="floor" required min="1" max="100" value="1">
+  <input type="number" id="floor" name="floor" required min="1" max="100" value="1"><br><br>
 
   <label for="floors">Total number of floors in house:</label>
   <input type="number" id="floors" name="floors" required min="1" max="100" value="15"><br><br>
 
   <label for="token">Enter secret token</label><br>
-  <input type="string" id="token" name="token" required><br><br>
-  <input type="submit" value="Submit" id="submit_btn" >
+  <input type="text" id="token" name="token" required><br><br>
+  <input type="submit" value="Submit" id="submit_btn">
 </form>
 
 <h3>Result: </h3>
-
 <span id="result"></span>
 
 <script>
-//  const area = document.getElementById("area");
-//  const submit_btn = document.getElementById("submit_btn");
-//  const result = document.getElementById("result");
+  const form = document.getElementById("predictForm");
+  const area = document.getElementById("area");
+  const rooms = document.getElementById("rooms");
+  const floor = document.getElementById("floor");
+  const floors = document.getElementById("floors");
+  const token = document.getElementById("token");
+  const result = document.getElementById("result");
 
-  //const ENDPOINT = "http://127.0.0.1:5000/predict";
-
-  //const ENDPOINT = "http://192.144.14.11:5000/predict";
   const ENDPOINT = "http://192.144.14.11:8000/predict";
-  submit_btn.addEventListener("click", submit_click, false);
 
-  function submit_click(event) {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    if (area.valid){
-      console.log("Valid!");
+
+    let house_params = {
+      total_meters: area.value,
+      rooms_count: rooms.value,
+      floor: floor.value,
+      floors_count: floors.value
+    };
+
+    try {
+      const response = await postJSON(house_params, token.value);
+      if (response && response.price !== undefined) {
+        result.innerHTML = `Predicted Price: ${response.price}`;
+      } else {
+        result.innerHTML = "Prediction failed!";
+      }
+    } catch (error) {
+      result.innerHTML = "Wrong connection!";
     }
-    let warn = "Wrong connection!";
-    let house_params = {total_meters: area.value,
-    rooms_count: rooms.value,
-    floor: floor.value,
-    floors_count: floors.value };
-    postJSON(house_params, token.value).then((response) => {
-      const price = response['price'];
-      result.innerHTML = price;
-    })
-    result.innerHTML = warn;
+  });
+
+  async function postJSON(data, token) {
+    try {
+      const response = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const result = await response.json();
+      console.log("Success:", result);
+      return result;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
   }
-
-async function postJSON(data, token) {
-  try {
-    const response = await fetch(ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-        "mode": "no-cors",
-      },
-      body: JSON.stringify(data),
-    });
-
-    const result = await response.json();
-    console.log("Success:", result);
-    return result;
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
-
 </script>
-
 </body>
-
 </html>
