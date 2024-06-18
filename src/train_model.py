@@ -35,7 +35,7 @@ def main(args):
     # Целевая переменная
     y_train = df_train['price']
 
-    model = RandomForestRegressor(n_estimators=100, random_state=42)
+    model = RandomForestRegressor(n_estimators=100, random_state=42, max_depth=9)
     model.fit(x_train, y_train)
     dump(model, args.model)
     logger.info(f'Saved to {args.model}')
