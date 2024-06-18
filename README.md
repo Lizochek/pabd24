@@ -512,6 +512,11 @@ python test\test_parallel.py
 
 Ссылка на отчёт по исследованию поведения серверов flask и gunicorn под разными видами нагрузки [результат](https://github.com/Lizochek/pabd24/blob/main/docs/report_3.md)
 
+Для запуска приложения используйте docker:
+```shell
+docker run elizavetacool/pabd24:latest
+```
+
 ### Лицензия
 Проект распространяется под лицензией MIT. Смотрите файл [LICENSE](LICENSE) для деталей.
 
